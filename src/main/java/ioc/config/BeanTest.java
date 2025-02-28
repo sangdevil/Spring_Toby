@@ -4,9 +4,12 @@ package ioc.config;
 import ioc.bean.Hello;
 import ioc.bean.Printer;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
+
+import java.util.Arrays;
 
 public class BeanTest {
 
@@ -71,5 +74,14 @@ public class BeanTest {
         System.out.println(printer.hashCode());
 
         assert hello.getPrinter().equals(hello2.getPrinter());
+    }
+
+    @Test
+    public void springDefaultBeanTest () {
+        ApplicationContext cx = SpringApplication.run(TestApplication.class);
+
+        System.out.println("🔹 SpringApplication.run()에서 등록된 빈 목록:");
+        Arrays.stream(cx.getBeanDefinitionNames()).forEach(System.out::println);
+
     }
 }

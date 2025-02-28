@@ -14,7 +14,11 @@ repositories {
 dependencies {
     // Spring Boot Starter - 기본적인 Spring 기능 포함
     implementation("org.springframework.boot:spring-boot-starter")
+
+    implementation("org.springframework.boot:spring-boot-starter-web")
+
     implementation("org.junit.jupiter:junit-jupiter")
+    implementation("jakarta.servlet:jakarta.servlet-api:5.0.0'") // Servlet API (Spring Boot 3.x)
 
     // Spring Boot Starter Test - JUnit 5 및 테스트 유틸 포함
     testImplementation("org.junit.jupiter:junit-jupiter")

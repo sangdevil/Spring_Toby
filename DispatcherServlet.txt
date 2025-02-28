@@ -1,0 +1,53 @@
+Question :
+
+Tomcat -> DispatcherServlet -> Controller -> Service
+로 가는 과정에서, HTTP 요청이 어떻게 각각의 객체로 전달되는지?
+
+
+Answer
+
+1. Tomcat에서 Http 요청이 들어오면, ServletRequest와 ServletResponse 객체를 생성
+
+? 컨테이너에 등록된 DispatcherServlet을 이용해, service(request, response)를 호출 (q1.)
+
+2. DispatcherServlet 내부 처리 : 핸들러 매핑 & 리플렉션
+
+DispatcherServlet이, 요청 URL을 확인하고, 해당 URL을 처리하는 컨트롤러 메스더를 찾는다.
+HandlerMapping이 보통 해당 메서드를 찾아서 리턴해 주고,
+HandlerAdpater가 리플렉션으로 실제 메서드를 실행한다 (??? q2)
+
+3. Controller -> Service 호출
+Service 객체의 해당 요청을 처리하는 메서드 호출
+
+4. ResponseEntity 를 활용해서, 결과를 JSON으로 변환하거나 View 렌더링을 통해
+최종 HTTP 응답 본문을 생성한다.
+
+q1.
+
+일반적인 스프링 부트 어플리케이션에서, Context는 몇 개야 ?
+루트 Context (ApplicationContext) 한 개 ?
+그렇다면 SecurityContext나 PersistenceContext는 뭐지?
+tomcat은 어느 컨택스트에 속해 있는가?
+DispatcherServlet 또한 어느 컨택스트에 속해 있는가?
+
+ApplicationContext는 한개,
+톰캣의 ServletContext는
+DispatcherServlet을 소유하고,
+
+DispatcherServlet이
+ApplicationContext를 소유하는 형태?
+
+q2.
+리플렉션이  뭐지? 일반적인 DI 방식으로 HandlerAdapeter를 호출하는 것이 아닌건가?
+일반적인 DI + 싱글톤 빈 형식으로 처리하는 게 아니라면,
+왜 그런 방식으로 처리해야만 하는지?
+
+리플렉션은 실행 중에 클래스의 메서드, 필드 생성자 등을 동적으로 분서하고 실행하는 기술
+컨트롤러에서, 동적으로 메서드가 매핑되어야 하는 경우, 일반적인 DI 방식으로는 메서드를 결정할 수 없음.
+이럴 때 사용하는 방법이 리플렉션
+
+추가질문. 리플렉션은 컴파일 및 바이트코드 변환, 그리고 JVM에 얹히는 과정에서 어떻게 checking되나 ?
+
+
+
+

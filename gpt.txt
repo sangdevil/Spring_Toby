@@ -1,0 +1,57 @@
+
+
+음, 어느정도 빈과 슼코프에 대한 이해는  좀 됐어.
+
+그렇다면, 싱글톤, 프로토타입을 넘어선 스코프 중 자주 이용되는 것,
+
+Request 스코프와 session 스코프에 대해서 자세히 알려줘.
+
+Spring boot에서 Request와 스코프와 Session 스코프를 사용하는
+아주아주 대표적인 예를 들어줌과 동시에,
+
+해당 객체들의 생성 파괴는 "누가" "어떻게" 담당하는 지알려줘
+
+예를 들어서, 웹 서버로 HTTP 요청이 들어왔 을 대,
+
+해당 요청이 들어와서 나올 때까지 거쳐가는 서버의 파트들과,
+
+그 파트 어디에서 해당 빈이생성되며 파괴되는 지.
+
+Answer :
+
+클라이언트가 Http 요청을 보냄 -> Tomcat이 accept()
+
+DispatcherServlet이 요청을 라우팅
+
+Controller가 Request 혹은 Session 스코프 빈을 주입받을 수 있음.
+
+Request 스코프 : 요청마다 새로 생성, 요청이 끝나면 삭제
+Session 스코프 : 세션별로 한 번씩 생성, 세션 만료시 삭제
+
+RequestContextListener -> Request 스코프 빈 생성 및 삭제?
+
+SessionListener -> Session 스코프 빈 생성 및 삭제 ?
+
+
+Question :
+
+Tomcat -> DistpatcherServlet -> Controller -> Service
+로 가는 과정에서,
+각 객체별 의존성 관계를 알려 줘.
+
+음, 내가 궁금하 ㄴ건,
+일반적인 Java 코드 흐름처럼 HTTP 요청이 처ㅏ리되는 지가 궁금한 거야.
+무슨 얘기냐면,
+
+a1.calla2()
+a2.calla3()
+a3.calla4()
+
+java 코드에서 는 저런식으로 연결된 다른 객체의 메소드를  호출하잖아 ?
+
+여기에서, HTTP 요청이 들어오는 과정에서 service 메소드로 전달되기까지 과정이
+저런 식으로 메소드 호출 방식인지, 아니면 다른 방식인지가 궁금해.
+
+
+
+
